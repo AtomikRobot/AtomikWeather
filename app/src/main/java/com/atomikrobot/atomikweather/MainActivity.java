@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.atomikrobot.atomikweather.cities.GetCities;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button cancelButton = (Button) findViewById(R.id.button_cancel);
 
+        setTitle(getString(R.string.title_main));
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                TextView okText = (TextView) findViewById(R.id.okLocationText);
-                okText.setText(location.getLatitude()+"  "+location.getLongitude());
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
+
+                new GetCities(activity, latitude, longitude).execute();
             }
 
             @Override
@@ -136,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }else {
             LocationInit();
-            okLocation();
         }
 
     }
@@ -149,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     LocationInit();
-                    okLocation();
                 } else {
                     cancelLocation();
                 }
@@ -159,11 +160,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void okLocation () {
-        progressBar.setVisibility(View.GONE);
-        TextView okText = (TextView) findViewById(R.id.okLocationText);
-        okText.setVisibility(View.VISIBLE);
-    }
 
     private void cancelLocation () {
         progressBar.setVisibility(View.GONE);

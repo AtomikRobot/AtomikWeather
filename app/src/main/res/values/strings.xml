@@ -4,10 +4,13 @@
     <string name="cancel">Cancel</string>
     <string name="cancel_text">We need access location of the phone</string>
     <string name="go">GO</string>
+    <string name="title_main">Meteo</string>
 
 
     <!--Broadcast Strings -->
     <string name="okLocation">OK_ACCESS_COARSE_LOCATION</string>
     <string name="cancelLocation">CANCEL_ACCESS_COARSE_LOCATION</string>
     <string name="ok_location_text">Ok Location</string>
+    <string name="title_activity_city">CityActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
