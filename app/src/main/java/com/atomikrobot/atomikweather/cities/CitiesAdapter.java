@@ -15,6 +15,7 @@ import com.atomikrobot.atomikweather.CityActivity;
 import com.atomikrobot.atomikweather.R;
 import com.atomikrobot.atomikweather.models.listModel;
 import com.atomikrobot.atomikweather.models.weatherModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -49,21 +50,20 @@ public class CitiesAdapter extends ArrayAdapter <listModel> {
 
         if (p != null) {
             TextView title = (TextView) v.findViewById(R.id.title);
-            ImageView star = (ImageView) v.findViewById(R.id.star_image);
             TextView temp = (TextView) v.findViewById(R.id.temp);
-            TextView weather = (TextView) v.findViewById(R.id.weather);
+            ImageView weather = (ImageView) v.findViewById(R.id.weather);
 
 
             if (title != null) {
-                title.setText(p.getName());
+                title.setText(p.getName()+" : ");
             }
 
             if (temp != null) {
-                temp.setText(p.getMain().getTemp()+"");
+                temp.setText(p.getMain().getTemp()+"°C");
             }
 
             if (weather != null) {
-                weather.setText(p.getWeather().get(0).getDescription());
+                Picasso.get().load("http://openweathermap.org/img/w/"+p.getWeather().get(0).getIcon()+".png").into(weather);
             }
         }
 
@@ -94,6 +94,7 @@ public class CitiesAdapter extends ArrayAdapter <listModel> {
 
             intent.putExtra("weather", listWeather);
             intent.putExtra("temp", listModel.getMain().getTemp());
+            intent.putExtra("icon", listModel.getWeather().get(0).getIcon());
 
 
 

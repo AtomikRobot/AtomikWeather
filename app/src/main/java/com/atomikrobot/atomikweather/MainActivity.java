@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationChanged(Location location) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-
+                Log.d("SPQR", latitude+" "+longitude);
                 new GetCities(activity, latitude, longitude).execute();
             }
 
@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onProviderDisabled(String provider) {
-                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-                startActivity(intent);
+
             }
         };
 
@@ -101,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void LocationInit () {
-        locationManager.requestLocationUpdates("gps", 5000, 50, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 50000, 0, locationListener);
     }
 
 
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
             }
         }else {
+            Log.d("SPQR", "OK Persmission");
             LocationInit();
         }
 

@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atomikrobot.atomikweather.models.weatherModel;
+import com.squareup.picasso.Picasso;
 
 public class CityActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class CityActivity extends AppCompatActivity {
         String nameCity = intent.getStringExtra("name");
         String weather = intent.getStringExtra("weather");
         float temp = intent.getFloatExtra("temp", 0.1f);
+        String icon = intent.getStringExtra("icon");
 
         setTitle(nameCity);
         TextView weatherView = (TextView) findViewById(R.id.weather);
@@ -33,14 +36,10 @@ public class CityActivity extends AppCompatActivity {
         TextView tempView = (TextView) findViewById(R.id.temp);
         tempView.setText(temp+"°C");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ImageView iconView = (ImageView) findViewById(R.id.weather_icon);
+        Picasso.get().load("http://openweathermap.org/img/w/"+icon+".png").into(iconView);
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
